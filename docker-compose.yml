@@ -1,16 +1,13 @@
 services:
+  # Serviço da sua aplicação FastAPI
   app:
-    # Constrói a imagem a partir do Dockerfile no diretório atual (.)
-    build: .
-    # Comando para iniciar a aplicação com uvicorn
-    # --host 0.0.0.0 é necessário para que a API seja acessível de fora do container
-    # --reload é ótimo para desenvolvimento, pois reinicia o servidor a cada mudança no código
-    container_name: api #Nome do container
+    build: . # Constrói a imagem a partir do Dockerfile na raiz do projeto
+    container_name: api # Nome do container
     ports:
-      # Mapeia a porta 8000 do host para a porta 8000 do container
-      - "8000:8000"
+      - "8000:8000" # Mapeia a porta 8000 do host para a porta 8000 do container
+                    # (conforme definido no seu Dockerfile com EXPOSE 8000 e CMD)
     volumes:
-      # Mapeia o diretório atual do seu host para o diretório /app no container
-      # Isso permite o hot-reloading e a persistência do banco de dados SQLite (escola.db)
-      - .:/app
+      - .:/app # Monta o diretório atual (onde está seu código) em /app dentro do container.
+               # Isso é ótimo para desenvolvimento, pois as alterações no código
+               # são refletidas automaticamente no container devido ao --reload do uvicorn.
     
